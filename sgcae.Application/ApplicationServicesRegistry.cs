@@ -17,6 +17,11 @@ using sgcae.Application.UseCases.Empleados.Commands.DesactivarEmpleado;
 using sgcae.Application.UseCases.Empleados.Commands.RegistrarEmpleado;
 using sgcae.Application.UseCases.Empleados.Queries.ListarEmpleados;
 using sgcae.Application.UseCases.Empleados.Queries.ObtenerEmpleadoPorId;
+using sgcae.Application.UseCases.PuntosAcceso;
+using sgcae.Application.UseCases.PuntosAcceso.Commands.CambiarHabilitacionPuntoAcceso;
+using sgcae.Application.UseCases.PuntosAcceso.Commands.RegistrarPuntoAcceso;
+using sgcae.Application.UseCases.PuntosAcceso.Queries.ListarPuntosAcceso;
+using sgcae.Application.UseCases.PuntosAcceso.Queries.ObtenerPuntoAccesoPorId;
 using sgcae.Application.Utilities.Mediator;
 using sgcae.Application.Utilities.Pagination;
 
@@ -45,6 +50,11 @@ namespace sgcae.Application
             services.AddScoped<IRequestHandler<RegistrarMovimientoAccesoCommand, MovimientoAccesoDTO>, RegistrarMovimientoAccesoUseCase>();
             services.AddScoped<IRequestHandler<ObtenerMovimientoPorIdQuery, MovimientoAccesoDTO?>, ObtenerMovimientoPorIdUseCase>();
             services.AddScoped<IRequestHandler<ListarHistorialAccesosQuery, PaginationResponse<HistorialAccesoDTO>>, ListarHistorialAccesosUseCase>();
+
+            services.AddScoped<IRequestHandler<RegistrarPuntoAccesoCommand, PuntoAccesoDTO>, RegistrarPuntoAccesoUseCase>();
+            services.AddScoped<IRequestHandler<CambiarHabilitacionPuntoAccesoCommand, PuntoAccesoDTO?>, CambiarHabilitacionPuntoAccesoUseCase>();
+            services.AddScoped<IRequestHandler<ObtenerPuntoAccesoPorIdQuery, PuntoAccesoDTO?>, ObtenerPuntoAccesoPorIdUseCase>();
+            services.AddScoped<IRequestHandler<ListarPuntosAccesoQuery, PaginationResponse<PuntoAccesoDTO>>, ListarPuntosAccesoUseCase>();
 
             return services;
         }
