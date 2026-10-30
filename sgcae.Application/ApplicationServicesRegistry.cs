@@ -8,6 +8,9 @@ using sgcae.Application.UseCases.Credenciales.Queries.ListarCredencialesPorEmple
 using sgcae.Application.UseCases.Credenciales.Queries.ObtenerCredencialPorCodigo;
 using sgcae.Application.UseCases.Credenciales.Queries.ObtenerCredencialPorId;
 using sgcae.Application.UseCases.Empleados;
+using sgcae.Application.UseCases.Movimientos;
+using sgcae.Application.UseCases.Movimientos.Commands.RegistrarMovimientoAcceso;
+using sgcae.Application.UseCases.Movimientos.Queries.ObtenerMovimientoPorId;
 using sgcae.Application.UseCases.Empleados.Commands.ActualizarEmpleado;
 using sgcae.Application.UseCases.Empleados.Commands.DesactivarEmpleado;
 using sgcae.Application.UseCases.Empleados.Commands.RegistrarEmpleado;
@@ -37,6 +40,9 @@ namespace sgcae.Application
             services.AddScoped<IRequestHandler<ObtenerCredencialPorIdQuery, CredencialDTO?>, ObtenerCredencialPorIdUseCase>();
             services.AddScoped<IRequestHandler<ObtenerCredencialPorCodigoQuery, CredencialDTO?>, ObtenerCredencialPorCodigoUseCase>();
             services.AddScoped<IRequestHandler<ListarCredencialesPorEmpleadoQuery, IReadOnlyList<CredencialDTO>?>, ListarCredencialesPorEmpleadoUseCase>();
+
+            services.AddScoped<IRequestHandler<RegistrarMovimientoAccesoCommand, MovimientoAccesoDTO>, RegistrarMovimientoAccesoUseCase>();
+            services.AddScoped<IRequestHandler<ObtenerMovimientoPorIdQuery, MovimientoAccesoDTO?>, ObtenerMovimientoPorIdUseCase>();
 
             return services;
         }

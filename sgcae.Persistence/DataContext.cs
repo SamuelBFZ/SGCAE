@@ -11,6 +11,8 @@ namespace sgcae.Persistence
 
         public DbSet<Empleado> Empleados => Set<Empleado>();
         public DbSet<Credencial> Credenciales => Set<Credencial>();
+        public DbSet<PuntoAcceso> PuntosAcceso => Set<PuntoAcceso>();
+        public DbSet<MovimientoAcceso> MovimientosAcceso => Set<MovimientoAcceso>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
