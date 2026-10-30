@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using sgcae.Domain.Entities;
 
 namespace sgcae.Persistence
 {
@@ -7,6 +8,8 @@ namespace sgcae.Persistence
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
+
+        public DbSet<Empleado> Empleados => Set<Empleado>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
