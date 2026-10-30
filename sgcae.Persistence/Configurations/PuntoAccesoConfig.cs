@@ -14,6 +14,7 @@ namespace sgcae.Persistence.Configurations
 
             builder.Property(p => p.Nombre)
                    .HasMaxLength(120)
+                   .UseCollation("SQL_Latin1_General_CP1_CI_AS")
                    .IsRequired();
 
             builder.HasIndex(p => p.Nombre)
