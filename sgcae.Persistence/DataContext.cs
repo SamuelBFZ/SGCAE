@@ -10,6 +10,7 @@ namespace sgcae.Persistence
         }
 
         public DbSet<Empleado> Empleados => Set<Empleado>();
+        public DbSet<Credencial> Credenciales => Set<Credencial>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

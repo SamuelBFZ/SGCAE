@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using sgcae.Application.UseCases.Credenciales;
+using sgcae.Application.UseCases.Credenciales.Queries.ListarCredencialesPorEmpleado;
 using sgcae.Application.UseCases.Empleados;
 using sgcae.Application.UseCases.Empleados.Commands.ActualizarEmpleado;
 using sgcae.Application.UseCases.Empleados.Commands.DesactivarEmpleado;
@@ -84,6 +86,22 @@ namespace sgcae.Api.Controllers
             }
 
             return Ok(empleado);
+        }
+
+        [HttpGet("{empleadoId:guid}/credenciales")]
+        public async Task<IActionResult> ListarCredenciales(Guid empleadoId)
+        {
+            IReadOnlyList<CredencialDTO>? credenciales = await _mediator.Send(new ListarCredencialesPorEmpleadoQuery
+            {
+                EmpleadoId = empleadoId
+            });
+
+            if (credenciales is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(credenciales);
         }
 
         [HttpPost("{id:guid}/desactivar")]

@@ -22,6 +22,35 @@ namespace sgcae.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("sgcae.Domain.Entities.Credencial", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Codigo")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<Guid>("EmpleadoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Codigo")
+                        .IsUnique();
+
+                    b.HasIndex("EmpleadoId");
+
+                    b.ToTable("Credenciales", (string)null);
+                });
+
             modelBuilder.Entity("sgcae.Domain.Entities.Empleado", b =>
                 {
                     b.Property<Guid>("Id")
@@ -69,6 +98,15 @@ namespace sgcae.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("Empleados", (string)null);
+                });
+
+            modelBuilder.Entity("sgcae.Domain.Entities.Credencial", b =>
+                {
+                    b.HasOne("sgcae.Domain.Entities.Empleado", null)
+                        .WithMany()
+                        .HasForeignKey("EmpleadoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
