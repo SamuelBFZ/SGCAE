@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using sgcae.Application.Contracts.Persistence;
+using sgcae.Application.Contracts.Repositories;
+using sgcae.Persistence.Repositories;
 using sgcae.Persistence.UnitOfWorks;
 
 namespace sgcae.Persistence
@@ -16,6 +18,7 @@ namespace sgcae.Persistence
             });
 
             services.AddScoped<IUnitOfWork, EfCoreUnitOfWork>();
+            services.AddScoped<IEmpleadosRepository, EmpleadosRepository>();
 
             return services;
         }
