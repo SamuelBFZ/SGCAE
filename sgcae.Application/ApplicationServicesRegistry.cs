@@ -10,6 +10,7 @@ using sgcae.Application.UseCases.Credenciales.Queries.ObtenerCredencialPorId;
 using sgcae.Application.UseCases.Empleados;
 using sgcae.Application.UseCases.Movimientos;
 using sgcae.Application.UseCases.Movimientos.Commands.RegistrarMovimientoAcceso;
+using sgcae.Application.UseCases.Movimientos.Queries.ListarHistorialAccesos;
 using sgcae.Application.UseCases.Movimientos.Queries.ObtenerMovimientoPorId;
 using sgcae.Application.UseCases.Empleados.Commands.ActualizarEmpleado;
 using sgcae.Application.UseCases.Empleados.Commands.DesactivarEmpleado;
@@ -43,6 +44,7 @@ namespace sgcae.Application
 
             services.AddScoped<IRequestHandler<RegistrarMovimientoAccesoCommand, MovimientoAccesoDTO>, RegistrarMovimientoAccesoUseCase>();
             services.AddScoped<IRequestHandler<ObtenerMovimientoPorIdQuery, MovimientoAccesoDTO?>, ObtenerMovimientoPorIdUseCase>();
+            services.AddScoped<IRequestHandler<ListarHistorialAccesosQuery, PaginationResponse<HistorialAccesoDTO>>, ListarHistorialAccesosUseCase>();
 
             return services;
         }

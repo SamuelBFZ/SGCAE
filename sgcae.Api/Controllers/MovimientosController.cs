@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using sgcae.Application.UseCases.Movimientos;
 using sgcae.Application.UseCases.Movimientos.Commands.RegistrarMovimientoAcceso;
+using sgcae.Application.UseCases.Movimientos.Queries.ListarHistorialAccesos;
 using sgcae.Application.UseCases.Movimientos.Queries.ObtenerMovimientoPorId;
 using sgcae.Application.Utilities.Mediator;
+using sgcae.Application.Utilities.Pagination;
 using sgcae.Domain.Entities;
 
 namespace sgcae.Api.Controllers
@@ -41,6 +43,31 @@ namespace sgcae.Api.Controllers
             }
 
             return Ok(movimiento);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(PaginationResponse<HistorialAccesoDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Listar(
+            [FromQuery] Guid? empleadoId,
+            [FromQuery] DateTime? desde,
+            [FromQuery] DateTime? hasta,
+            [FromQuery] Guid? puntoAccesoId,
+            [FromQuery] ResultadoMovimiento? resultado,
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = PaginationRequest.DefaultPageSize)
+        {
+            PaginationResponse<HistorialAccesoDTO> page = await _mediator.Send(new ListarHistorialAccesosQuery
+            {
+                EmpleadoId = empleadoId,
+                Desde = desde,
+                Hasta = hasta,
+                PuntoAccesoId = puntoAccesoId,
+                Resultado = resultado,
+                Pagination = new PaginationRequest(pageNumber, pageSize)
+            });
+
+            return Ok(page);
         }
     }
 
