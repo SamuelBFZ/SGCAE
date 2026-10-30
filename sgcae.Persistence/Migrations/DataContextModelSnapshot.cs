@@ -100,6 +100,81 @@ namespace sgcae.Persistence.Migrations
                     b.ToTable("Empleados", (string)null);
                 });
 
+            modelBuilder.Entity("sgcae.Domain.Entities.MovimientoAcceso", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CodigoCredencial")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<Guid?>("CredencialId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("EmpleadoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Motivo")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<DateTime>("OcurridoEn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("PuntoAccesoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PuntoAccesoSolicitado")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Resultado")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CredencialId");
+
+                    b.HasIndex("OcurridoEn");
+
+                    b.HasIndex("PuntoAccesoId");
+
+                    b.HasIndex("EmpleadoId", "OcurridoEn");
+
+                    b.ToTable("MovimientosAcceso", (string)null);
+                });
+
+            modelBuilder.Entity("sgcae.Domain.Entities.PuntoAcceso", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Habilitado")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Nombre")
+                        .IsUnique();
+
+                    b.ToTable("PuntosAcceso", (string)null);
+                });
+
             modelBuilder.Entity("sgcae.Domain.Entities.Credencial", b =>
                 {
                     b.HasOne("sgcae.Domain.Entities.Empleado", null)
@@ -107,6 +182,24 @@ namespace sgcae.Persistence.Migrations
                         .HasForeignKey("EmpleadoId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("sgcae.Domain.Entities.MovimientoAcceso", b =>
+                {
+                    b.HasOne("sgcae.Domain.Entities.Credencial", null)
+                        .WithMany()
+                        .HasForeignKey("CredencialId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("sgcae.Domain.Entities.Empleado", null)
+                        .WithMany()
+                        .HasForeignKey("EmpleadoId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("sgcae.Domain.Entities.PuntoAcceso", null)
+                        .WithMany()
+                        .HasForeignKey("PuntoAccesoId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }
