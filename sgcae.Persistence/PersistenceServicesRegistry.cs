@@ -19,6 +19,7 @@ namespace sgcae.Persistence
 
             services.AddScoped<IUnitOfWork, EfCoreUnitOfWork>();
             services.AddScoped<IEmpleadosRepository, EmpleadosRepository>();
+            services.AddScoped<ICredencialesRepository, CredencialesRepository>();
 
             return services;
         }
